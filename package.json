@@ -1,0 +1,19 @@
+{
+  "name": "@sonicoriginalsoftware/arg-parser",
+  "version": "0.0.1",
+  "description": "Parses args",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "npx @sonicoriginalsoftware/jester"
+  },
+  "keywords": [
+    "arg",
+    "parser"
+  ],
+  "author": "Nathan Blair",
+  "license": "0BSD",
+  "devDependencies": {
+    "@sonicoriginalsoftware/jester": "file:../jester"
+  }
+}

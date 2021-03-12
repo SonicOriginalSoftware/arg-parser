@@ -1,6 +1,6 @@
 import { strict as assert } from "assert"
 
-import { parse, token_key } from "../index.js"
+import { parse, token_key } from "../../index.js"
 
 export const id = "Tokens"
 

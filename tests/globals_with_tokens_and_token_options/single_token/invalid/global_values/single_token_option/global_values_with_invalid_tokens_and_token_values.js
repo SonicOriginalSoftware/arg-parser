@@ -2,7 +2,7 @@ import { strict as assert } from "assert"
 
 import { parse, global_flag_index } from "../../../../../../index.js"
 
-export const id = "Global Values with Invalid Tokens and Token Option Values"
+export const id = "Global Values with Invalid Tokens and Token Values"
 
 const invalid_token_name = "bogus"
 const global_flag_name = "f"

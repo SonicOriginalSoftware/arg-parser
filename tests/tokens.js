@@ -1,6 +1,6 @@
 import { strict as assert } from "assert"
 
-import { parse, global_flag_index } from "../index.js"
+import { parse, token_key } from "../index.js"
 
 export const id = "Tokens"
 
@@ -14,7 +14,7 @@ export const assertions = {
       const parsed = await parse(["bogus"], token_list)
       assert.deepStrictEqual(parsed, {})
     },
-    // skip: true
+    // skip: true,
   },
   "Should be able to pass an invalid token out of two token possibilities and not show it in the resulting parse": {
     function: async () => {
@@ -25,7 +25,7 @@ export const assertions = {
       const parsed = await parse(["bogus"], token_list)
       assert.deepStrictEqual(parsed, {})
     },
-    // skip: true
+    // skip: true,
   },
   "Should be able to pass one valid token out of one token possibility and show it in the resulting parse": {
     function: async () => {
@@ -36,7 +36,7 @@ export const assertions = {
       })
 
       const parsed = await parse([valid_token_name], token_list)
-      assert.deepStrictEqual(parsed, { 0: { token: valid_token_name } })
+      assert.deepStrictEqual(parsed, { 0: { [token_key]: valid_token_name } })
     },
     // skip: true
   },
@@ -49,8 +49,8 @@ export const assertions = {
       })
 
       const parsed = await parse([valid_token_name], token_list)
-      assert.fail("Not implemented yet!")
+      assert.deepStrictEqual(parsed, { 0: { [token_key]: valid_token_name } })
     },
-    // skip: true
+    skip: true,
   },
 }

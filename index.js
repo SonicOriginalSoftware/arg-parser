@@ -2,6 +2,7 @@
 /** @typedef {Object.<Number, String[]>} TokenList */
 
 export const global_flag_index = 0
+export const token_key = "-"
 
 /**
  * @param {string[]} args
@@ -56,7 +57,9 @@ export async function parse(args, token_list) {
       token_list !== undefined &&
       token_list[current_section]?.indexOf(current_arg_value) >= 0
     ) {
-      // FIXME
+      if (parse[current_section] === undefined) parse[current_section] = {}
+
+      parse[current_section][token_key] = current_arg_value
       current_section += 1
     }
   }

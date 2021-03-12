@@ -20,48 +20,42 @@ export async function parse(args, token_list) {
   ) {
     const current_arg_value = args[current_arg_index]
 
+    let key = token_key
+    /** @type {String | Boolean} */
+    let value = current_arg_value
+
     if (current_arg_value[0] === "-") {
-      let equals_index = current_arg_value.indexOf("=")
+      const equals_index = current_arg_value.indexOf("=")
 
       const next_arg_index = current_arg_index + 1
       const next_arg_value = args[next_arg_index]
 
-      const next_value_is_flag =
-        args.length > next_arg_index && next_arg_value[0] === "-"
+      key = (equals_index > 0
+        ? current_arg_value.slice(0, equals_index)
+        : current_arg_value
+      ).replace(/^-{1,2}/, "")
 
-      const next_value_is_token =
-        token_list !== undefined &&
-        token_list[current_section]?.indexOf(next_arg_value) >= 0
-
-      if (parse[current_section] === undefined) parse[current_section] = {}
-
-      const is_flag =
+      value =
         equals_index < 0 &&
-        (next_value_is_flag ||
-          next_value_is_token ||
+        ((args.length > next_arg_index && next_arg_value[0] === "-") ||
+          (token_list !== undefined &&
+            token_list[current_section]?.indexOf(next_arg_value) >= 0) ||
           next_arg_value === undefined)
-
-      const value = is_flag
-        ? true
-        : equals_index > 0
-        ? current_arg_value.slice(equals_index + 1)
-        : next_arg_value
-
-      parse[current_section][
-        (equals_index > 0
-          ? current_arg_value.slice(0, equals_index)
-          : current_arg_value
-        ).replace(/^-{1,2}/, "")
-      ] = value
+          ? true
+          : equals_index > 0
+          ? current_arg_value.slice(equals_index + 1)
+          : next_arg_value
     } else if (
       token_list !== undefined &&
       token_list[current_section]?.indexOf(current_arg_value) >= 0
     ) {
       current_section += 1
-      if (parse[current_section] === undefined) parse[current_section] = {}
-
-      parse[current_section][token_key] = current_arg_value
+    } else {
+      continue
     }
+
+    if (parse[current_section] === undefined) parse[current_section] = {}
+    parse[current_section][key] = value
   }
 
   return parse

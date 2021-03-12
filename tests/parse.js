@@ -48,7 +48,17 @@ export const assertions = {
     },
     // skip: true,
   },
-  "Should be able to set multiple flag toggles": {
+  "Should be able to toggle multiple flags with the '-$flag' syntax when no value is passed": {
+    function: async () => {
+      const flag1_name = "f1"
+      const flag2_name = "f2"
+      const parsed = await parse([`-${flag1_name}`, `-${flag2_name}`], {})
+      assert.deepStrictEqual(parsed[global_flag_index][flag1_name], true)
+      assert.deepStrictEqual(parsed[global_flag_index][flag2_name], true)
+    },
+    // skip: true,
+  },
+  "Should be able to toggle multiple flags with the '--$flag' syntax when no value is passed": {
     function: async () => {
       assert.fail("Not yet implemented!")
     },

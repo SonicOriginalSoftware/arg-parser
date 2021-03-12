@@ -12,7 +12,7 @@ export const token_key = "-"
  * */
 export async function parse(args, token_list) {
   let parse = {}
-  let current_section = 0
+  let current_section = global_flag_index
   for (
     let current_arg_index = 0;
     current_arg_index < args.length;

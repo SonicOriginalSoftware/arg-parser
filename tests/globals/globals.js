@@ -2,7 +2,7 @@ import { strict as assert } from "assert"
 
 import { parse, global_flag_index } from "../../index.js"
 
-export const id = "Global Flags"
+export const id = "Globals"
 
 export const assertions = {
   "Should be able to toggle a flag with the '-$flag' syntax when no value is passed": {

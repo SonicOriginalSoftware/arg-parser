@@ -31,7 +31,7 @@ export const assertions = {
     },
     // skip: true,
   },
-  "Should be able to pass one valid token out of 1 token possibility and show it in the resulting parse": {
+  "Should be able to pass one valid token out of 1 token possibility": {
     function: async () => {
       const parsed = await parse(
         [valid_token_name],
@@ -43,7 +43,7 @@ export const assertions = {
     },
     // skip: true
   },
-  "Should be able to pass one valid token out of 2 token possibilities and show it in the resulting parse": {
+  "Should be able to pass one valid token out of 2 token possibilities": {
     function: async () => {
       const parsed = await parse(
         [valid_token_name],
@@ -83,7 +83,7 @@ export const assertions = {
     },
     // skip: true,
   },
-  "Should be able to pass another valid token out of 2 token possibilities and show it in the resulting parse": {
+  "Should be able to pass another valid token out of 2 token possibilities": {
     function: async () => {
       const another_valid_token_name = "token2"
 

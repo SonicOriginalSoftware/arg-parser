@@ -23,7 +23,7 @@ export const assertions = {
       })
 
       const parsed = await parse(["bogus"], token_list)
-      assert.fail("Not implemented yet!")
+      assert.deepStrictEqual(parsed, {})
     },
     // skip: true
   },
@@ -36,7 +36,7 @@ export const assertions = {
       })
 
       const parsed = await parse([valid_token_name], token_list)
-      assert.fail("Not implemented yet!")
+      assert.deepStrictEqual(parsed, { 0: { token: valid_token_name } })
     },
     // skip: true
   },

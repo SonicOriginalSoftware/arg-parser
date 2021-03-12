@@ -9,16 +9,16 @@ const valid_token_name = "token1"
 export const assertions = {
   "Should be able to toggle global flags passed with the '-$flag' syntax when a valid token is passed out of 1 valid token possibility": {
     function: async () => {
-      const flag1_name = "f1"
+      const flag_name = "f"
 
       const parsed = await parse(
-        [`-${flag1_name}`, valid_token_name],
+        [`-${flag_name}`, valid_token_name],
         Object.freeze({ 0: [valid_token_name] })
       )
 
       assert.deepStrictEqual(parsed, {
         [global_flag_index]: {
-          [flag1_name]: true,
+          [flag_name]: true,
         },
         [1]: {
           [token_key]: valid_token_name,
@@ -29,16 +29,16 @@ export const assertions = {
   },
   "Should be able to toggle global flags passed with the '-$flag' syntax when a valid token is passed out of 2 valid token possibilities": {
     function: async () => {
-      const flag1_name = "f1"
+      const flag_name = "f"
 
       const parsed = await parse(
-        [`-${flag1_name}`, valid_token_name],
+        [`-${flag_name}`, valid_token_name],
         Object.freeze({ 0: [valid_token_name, "token2"] })
       )
 
       assert.deepStrictEqual(parsed, {
         [global_flag_index]: {
-          [flag1_name]: true,
+          [flag_name]: true,
         },
         [1]: {
           [token_key]: valid_token_name,
@@ -49,16 +49,16 @@ export const assertions = {
   },
   "Should be able to toggle global flags passed with the '--$flag' syntax when a valid token is passed out of 1 valid token possibility": {
     function: async () => {
-      const flag1_name = "f1"
+      const flag_name = "f"
 
       const parsed = await parse(
-        [`--${flag1_name}`, valid_token_name],
+        [`--${flag_name}`, valid_token_name],
         Object.freeze({ 0: [valid_token_name] })
       )
 
       assert.deepStrictEqual(parsed, {
         [global_flag_index]: {
-          [flag1_name]: true,
+          [flag_name]: true,
         },
         [1]: {
           [token_key]: valid_token_name,
@@ -69,16 +69,142 @@ export const assertions = {
   },
   "Should be able to toggle global flags passed with the '--$flag' syntax when a valid token is passed out of 2 valid token possibilities": {
     function: async () => {
-      const flag1_name = "f1"
+      const flag_name = "f"
 
       const parsed = await parse(
-        [`--${flag1_name}`, valid_token_name],
+        [`--${flag_name}`, valid_token_name],
         Object.freeze({ 0: [valid_token_name, "token2"] })
       )
 
       assert.deepStrictEqual(parsed, {
         [global_flag_index]: {
-          [flag1_name]: true,
+          [flag_name]: true,
+        },
+        [1]: {
+          [token_key]: valid_token_name,
+        },
+      })
+    },
+    // skip: true,
+  },
+  "Should be able to set global flag values passed with the '-$flag' syntax when a valid token is passed out of 1 valid token possibility": {
+    function: async () => {
+      const flag_name = "f"
+      const value = "value"
+
+      const parsed = await parse(
+        [`-${flag_name}`, value, valid_token_name],
+        Object.freeze({ 0: [valid_token_name] })
+      )
+
+      assert.deepStrictEqual(parsed, {
+        [global_flag_index]: {
+          [flag_name]: value,
+        },
+        [1]: {
+          [token_key]: valid_token_name,
+        },
+      })
+    },
+    // skip: true,
+  },
+  "Should be able to set global flag values passed with the '-$flag' syntax when a valid token is passed out of 2 valid token possibilities": {
+    function: async () => {
+      const flag_name = "f"
+      const value = "value"
+
+      const parsed = await parse(
+        [`-${flag_name}`, value, valid_token_name],
+        Object.freeze({ 0: [valid_token_name, "token2"] })
+      )
+
+      assert.deepStrictEqual(parsed, {
+        [global_flag_index]: {
+          [flag_name]: value,
+        },
+        [1]: {
+          [token_key]: valid_token_name,
+        },
+      })
+    },
+    // skip: true,
+  },
+  "Should be able to set global flag values passed with the '--$flag' syntax when a valid token is passed out of 1 valid token possibility": {
+    function: async () => {
+      const flag_name = "f"
+      const value = "value"
+
+      const parsed = await parse(
+        [`--${flag_name}`, value, valid_token_name],
+        Object.freeze({ 0: [valid_token_name] })
+      )
+
+      assert.deepStrictEqual(parsed, {
+        [global_flag_index]: {
+          [flag_name]: value,
+        },
+        [1]: {
+          [token_key]: valid_token_name,
+        },
+      })
+    },
+    // skip: true,
+  },
+  "Should be able to set global flag values passed with the '--$flag' syntax when a valid token is passed out of 2 valid token possibilities": {
+    function: async () => {
+      const flag_name = "f"
+      const value = "value"
+
+      const parsed = await parse(
+        [`--${flag_name}`, value, valid_token_name],
+        Object.freeze({ 0: [valid_token_name, "token2"] })
+      )
+
+      assert.deepStrictEqual(parsed, {
+        [global_flag_index]: {
+          [flag_name]: value,
+        },
+        [1]: {
+          [token_key]: valid_token_name,
+        },
+      })
+    },
+    // skip: true,
+  },
+  "Should be able to set global flag values passed with the '--$flag=' syntax when a valid token is passed out of 2 valid token possibilities": {
+    function: async () => {
+      const flag_name = "f"
+      const value = "value"
+
+      const parsed = await parse(
+        [`--${flag_name}=${value}`, valid_token_name],
+        Object.freeze({ 0: [valid_token_name, "token2"] })
+      )
+
+      assert.deepStrictEqual(parsed, {
+        [global_flag_index]: {
+          [flag_name]: value,
+        },
+        [1]: {
+          [token_key]: valid_token_name,
+        },
+      })
+    },
+    // skip: true,
+  },
+  "Should be able to set global flag values passed with the '--$flag=' syntax when a valid token is passed out of 1 valid token possibility": {
+    function: async () => {
+      const flag_name = "f"
+      const value = "value"
+
+      const parsed = await parse(
+        [`--${flag_name}=${value}`, value, valid_token_name],
+        Object.freeze({ 0: [valid_token_name] })
+      )
+
+      assert.deepStrictEqual(parsed, {
+        [global_flag_index]: {
+          [flag_name]: value,
         },
         [1]: {
           [token_key]: valid_token_name,

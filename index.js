@@ -1,32 +1,48 @@
+/** @typedef {Object.<Number, String[]>} Args */
+/** @typedef {Object.<Number, String[]>} TokenList */
+
+export const global_flag_index = 0
+
 /**
- * Accepts an array of options and returns a map of their keys and values
+ * @param {string[]} args
+ * @param {TokenList} token_list
  *
- * @param {String[]} options
- */
-export function parse_options(options) {
-  /** @type {Map<String, any>} */
-  const parsed_options = new Map()
+ * @returns {Promise<Args>}
+ * */
+export async function parse(args, token_list) {
+  const number_of_tokens = Object.keys(token_list).length
+  let parse = {}
+  let current_section = 0
+  for (let current_index = 0; current_index < args.length; current_index++) {
+    const current_value = args[current_index]
 
-  for (const each_option of options.entries()) {
-    const index = each_option[0]
-    const next_index = index + 1
+    const next_index = current_index + 1
+    const next_value = args[next_index]
 
-    const key = each_option[1]
-    let key_is_flag = false
+    const next_value_is_token =
+      token_list[current_section]?.indexOf(next_value) >= 0
 
-    let next_parameter
-    let value
-    if (options.length >= next_index) {
-      next_parameter = options[next_index]
-      if (next_parameter.startsWith("-")) {
-        key_is_flag = true
-      } else {
-        value = next_parameter
-      }
+    const current_value_is_flag = current_value[0] === "-"
+    const next_value_is_flag = args.length > next_index && next_value[0] === "-"
+
+    if (parse[current_section] === undefined) parse[current_section] = {}
+
+    if (current_value_is_flag) {
+      const flag_name = current_value.replace(/^-{1,2}/, "")
+
+      const value =
+        next_value_is_flag || next_value_is_token || next_value === undefined
+          ? true
+          : next_value
+
+      parse[current_section] = { [flag_name]: value }
+    } else if (next_value_is_token) {
+      current_section += 1
     }
 
-    parsed_options.set(key, key_is_flag ? true : value)
+    // FIXME If next index is not a flag then its either a value or a token
+    // If its not a token then we need to skip current_index beyond it
   }
 
-  return parsed_options
+  return parse
 }

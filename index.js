@@ -17,25 +17,34 @@ export async function parse(args, token_list) {
     const current_value = args[current_index]
 
     const next_index = current_index + 1
-    const next_value = args[next_index]
+    const next_arg = args[next_index]
 
     const next_value_is_token =
-      token_list[current_section]?.indexOf(next_value) >= 0
+      token_list[current_section]?.indexOf(next_arg) >= 0
 
     const current_value_is_flag = current_value[0] === "-"
-    const next_value_is_flag = args.length > next_index && next_value[0] === "-"
+    const next_value_is_flag = args.length > next_index && next_arg[0] === "-"
 
     if (parse[current_section] === undefined) parse[current_section] = {}
 
     if (current_value_is_flag) {
-      const flag_name = current_value.replace(/^-{1,2}/, "")
+      let equals_index = current_value.indexOf("=")
 
       const value =
-        next_value_is_flag || next_value_is_token || next_value === undefined
+        next_value_is_flag ||
+        next_value_is_token ||
+        (next_arg === undefined && equals_index < 0)
           ? true
-          : next_value
+          : equals_index > 0
+          ? current_value.slice(equals_index + 1)
+          : next_arg
 
-      parse[current_section] = { [flag_name]: value }
+      parse[current_section] = {
+        [(equals_index > 0
+          ? current_value.slice(0, equals_index)
+          : current_value
+        ).replace(/^-{1,2}/, "")]: value,
+      }
     } else if (next_value_is_token) {
       current_section += 1
     }

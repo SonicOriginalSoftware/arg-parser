@@ -41,9 +41,12 @@ export const assertions = {
   },
   "Should be able to set a flag value passed with '--$flag=' syntax": {
     function: async () => {
-      assert.fail("Not yet implemented!")
+      const flag_name = "flag"
+      const value = "value"
+      const parsed = await parse([`--${flag_name}=${value}`], {})
+      assert.deepStrictEqual(parsed[global_flag_index][flag_name], value)
     },
-    skip: true,
+    // skip: true,
   },
   "Should be able to set multiple flag toggles": {
     function: async () => {

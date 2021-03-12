@@ -57,10 +57,10 @@ export async function parse(args, token_list) {
       token_list !== undefined &&
       token_list[current_section]?.indexOf(current_arg_value) >= 0
     ) {
+      current_section += 1
       if (parse[current_section] === undefined) parse[current_section] = {}
 
       parse[current_section][token_key] = current_arg_value
-      current_section += 1
     }
   }
 

@@ -36,7 +36,7 @@ export const assertions = {
       })
 
       const parsed = await parse([valid_token_name], token_list)
-      assert.deepStrictEqual(parsed, { 0: { [token_key]: valid_token_name } })
+      assert.deepStrictEqual(parsed, { 1: { [token_key]: valid_token_name } })
     },
     // skip: true
   },
@@ -49,8 +49,21 @@ export const assertions = {
       })
 
       const parsed = await parse([valid_token_name], token_list)
-      assert.deepStrictEqual(parsed, { 0: { [token_key]: valid_token_name } })
+      assert.deepStrictEqual(parsed, { 1: { [token_key]: valid_token_name } })
     },
-    skip: true,
+    // skip: true,
+  },
+  "Should be able to pass another valid token out of two token possibilities and show it in the resulting parse": {
+    function: async () => {
+      const valid_token_name = "token2"
+
+      const token_list = Object.freeze({
+        0: [valid_token_name, "token1"],
+      })
+
+      const parsed = await parse([valid_token_name], token_list)
+      assert.deepStrictEqual(parsed, { 1: { [token_key]: valid_token_name } })
+    },
+    // skip: true,
   },
 }

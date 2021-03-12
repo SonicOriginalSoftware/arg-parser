@@ -34,14 +34,17 @@ export async function parse(args, token_list) {
 
       if (parse[current_section] === undefined) parse[current_section] = {}
 
-      const value =
-        next_value_is_flag ||
-        next_value_is_token ||
-        (next_arg_value === undefined && equals_index < 0)
-          ? true
-          : equals_index > 0
-          ? current_arg_value.slice(equals_index + 1)
-          : next_arg_value
+      const is_flag =
+        equals_index < 0 &&
+        (next_value_is_flag ||
+          next_value_is_token ||
+          next_arg_value === undefined)
+
+      const value = is_flag
+        ? true
+        : equals_index > 0
+        ? current_arg_value.slice(equals_index + 1)
+        : next_arg_value
 
       parse[current_section][
         (equals_index > 0

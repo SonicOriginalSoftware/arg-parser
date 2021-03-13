@@ -11,6 +11,10 @@
     "arg",
     "parser"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/SonicOriginalSoftware/arg-parser"
+  },
   "author": "Nathan Blair",
   "license": "0BSD",
   "devDependencies": {

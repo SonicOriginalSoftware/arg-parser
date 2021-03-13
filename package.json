@@ -1,7 +1,7 @@
 {
   "name": "@sonicoriginalsoftware/arg-parser",
-  "version": "0.0.1",
-  "description": "Parses args",
+  "version": "0.5.0",
+  "description": "Ye be parsin' yer args",
   "main": "index.js",
   "type": "module",
   "scripts": {

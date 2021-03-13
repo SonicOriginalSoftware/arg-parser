@@ -14,7 +14,7 @@ export const assertions = {
     function: async () => {
       const parsed = await parse(
         [`-${global_flag_name}`, valid_token_name, `-${token_flag_name}`],
-        Object.freeze({ 0: ["token1"] })
+        Object.freeze({ 0: [valid_token_name] })
       )
 
       assert.deepStrictEqual(parsed, {
@@ -33,7 +33,7 @@ export const assertions = {
     function: async () => {
       const parsed = await parse(
         [`--${global_flag_name}`, valid_token_name, `-${token_flag_name}`],
-        Object.freeze({ 0: ["token1"] })
+        Object.freeze({ 0: [valid_token_name] })
       )
 
       assert.deepStrictEqual(parsed, {
@@ -52,7 +52,7 @@ export const assertions = {
     function: async () => {
       const parsed = await parse(
         [`-${global_flag_name}`, valid_token_name, `--${token_flag_name}`],
-        Object.freeze({ 0: ["token1"] })
+        Object.freeze({ 0: [valid_token_name] })
       )
 
       const expected = {
@@ -83,7 +83,7 @@ export const assertions = {
     function: async () => {
       const parsed = await parse(
         [`--${global_flag_name}`, valid_token_name, `--${token_flag_name}`],
-        Object.freeze({ 0: ["token1"] })
+        Object.freeze({ 0: [valid_token_name] })
       )
 
       assert.deepStrictEqual(parsed, {
@@ -102,7 +102,7 @@ export const assertions = {
     function: async () => {
       const parsed = await parse(
         [`-${global_flag_name}`, valid_token_name, `-${token_flag_name}`],
-        Object.freeze({ 0: ["token1", "token2"] })
+        Object.freeze({ 0: [valid_token_name, "token2"] })
       )
 
       assert.deepStrictEqual(parsed, {
@@ -121,7 +121,7 @@ export const assertions = {
     function: async () => {
       const parsed = await parse(
         [`--${global_flag_name}`, valid_token_name, `-${token_flag_name}`],
-        Object.freeze({ 0: ["token1", "token2"] })
+        Object.freeze({ 0: [valid_token_name, "token2"] })
       )
 
       assert.deepStrictEqual(parsed, {
@@ -140,7 +140,7 @@ export const assertions = {
     function: async () => {
       const parsed = await parse(
         [`-${global_flag_name}`, valid_token_name, `--${token_flag_name}`],
-        Object.freeze({ 0: ["token1", "token2"] })
+        Object.freeze({ 0: [valid_token_name, "token2"] })
       )
 
       assert.deepStrictEqual(parsed, {
@@ -159,7 +159,7 @@ export const assertions = {
     function: async () => {
       const parsed = await parse(
         [`--${global_flag_name}`, valid_token_name, `--${token_flag_name}`],
-        Object.freeze({ 0: ["token1", "token2"] })
+        Object.freeze({ 0: [valid_token_name, "token2"] })
       )
 
       assert.deepStrictEqual(parsed, {

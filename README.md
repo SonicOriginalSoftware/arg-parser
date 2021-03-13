@@ -119,4 +119,4 @@ This might one of the most extensively tested packages of all time, considering 
 
 There are around 100+ tests currently to validate the intended behavior of the `parse` function.
 
-Thanks to the ease of use of [`@sonicoriginalsoftware/jester`](SonicOriginalSoftware/jester), testing became a breeze to implement.
+Thanks to the ease of use of [`@sonicoriginalsoftware/jester`](https://github.com/SonicOriginalSoftware/jester), testing became a breeze to implement.

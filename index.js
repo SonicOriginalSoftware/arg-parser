@@ -11,6 +11,7 @@ export const token_key = "-"
  * @returns {Promise<Args>}
  * */
 export async function parse(args, token_list) {
+  if (args === []) return {}
   let parse = {}
   let current_section = global_flag_index
   for (

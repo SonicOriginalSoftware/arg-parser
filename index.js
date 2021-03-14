@@ -1,4 +1,5 @@
-/** @typedef {Object.<Number, any>} Args */
+/** @typedef {Map<String, String | Boolean>} Arg */
+/** @typedef {Map<Number, Arg>} Args */
 /** @typedef {Object.<Number, String[]>} TokenList */
 
 export const global_flag_index = 0
@@ -11,8 +12,10 @@ export const token_key = "-"
  * @returns {Promise<Args>}
  * */
 export async function parse(args, token_list) {
-  if (args === []) return {}
-  let parse = {}
+  if (args === []) return new Map()
+
+  /** @type {Args} */
+  let parsed = new Map()
   let current_section = global_flag_index
   for (
     let current_arg_index = 0;
@@ -48,16 +51,17 @@ export async function parse(args, token_list) {
           : next_arg_value
     } else if (
       token_list !== undefined &&
-      token_list[current_section]?.indexOf(current_arg_value) >= 0
+      token_list[current_section + 1]?.indexOf(current_arg_value) >= 0
     ) {
       current_section += 1
     } else {
       continue
     }
 
-    if (parse[current_section] === undefined) parse[current_section] = {}
-    parse[current_section][key] = value
+    if (parsed.get(current_section) === undefined)
+      parsed.set(current_section, new Map())
+    parsed.get(current_section)?.set(key, value)
   }
 
-  return parse
+  return parsed
 }
